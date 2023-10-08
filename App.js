@@ -30,7 +30,7 @@ export default function App() {
 					style: 'canсel',
 				},
 				{
-					text: 'Удалить', 
+					text: 'Удалить',
 					style: 'destructive',
 					onPress: () => {
 						setTodoId(null)
@@ -38,15 +38,24 @@ export default function App() {
 					}
 				},
 			],
-			{cancelable: false},
+			{ cancelable: false },
 		)
 	}
 
+	const updateTodo = (id, title) => {
+		setTodos(old => old.map(todo => {
+			if (todo.id === id) {
+				todo.title = title
+			}
+			return todo
+		}))
+	}
+
 	let content = (
-		<MainScreen 
-			todos={todos} 
-			addTodo={addTodo} 
-			removeTodo={removeTodo} 
+		<MainScreen
+			todos={todos}
+			addTodo={addTodo}
+			removeTodo={removeTodo}
 			openTodo={setTodoId}
 		/>
 	)
@@ -54,16 +63,17 @@ export default function App() {
 	if (todoId) {
 		const selectedTodo = todos.find(todo => todo.id === todoId)
 		content = (
-			<TodoScreen 
-				onRemove={removeTodo} 
-				goBack={() => setTodoId(null)} 
+			<TodoScreen
+				onRemove={removeTodo}
+				goBack={() => setTodoId(null)}
 				todo={selectedTodo}
+				onSave={updateTodo}
 			/>
 		)
 	}
 
 	return (
-		<View style={{flex: 1}}>
+		<View style={{ flex: 1 }}>
 			<Navbar title="Todo App!" />
 			<View style={styles.container}>{content}</View>
 		</View>
