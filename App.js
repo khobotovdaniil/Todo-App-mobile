@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { StyleSheet, View, Alert, Text } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { StyleSheet, View, Alert } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
