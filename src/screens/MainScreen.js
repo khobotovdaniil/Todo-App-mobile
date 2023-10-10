@@ -21,11 +21,13 @@ export const MainScreen = ({ addTodo, todos, removeTodo, openTodo }) => {
 
 
 	let content = (
-		<View style={{ flex: 1, deviceWidth }}>
+		<View style={{ flex: 1, width: deviceWidth }}>
 			<FlatList
 				keyExtractor={item => item.id.toString()}
 				data={todos}
-				renderItem={({ item }) => <Todo todo={item} onRemove={removeTodo} onOpen={openTodo} />}
+				renderItem={({ item }) => (
+					<Todo todo={item} onRemove={removeTodo} onOpen={openTodo} />
+				)}
 			/>
 		</View>
 	)
@@ -44,7 +46,6 @@ export const MainScreen = ({ addTodo, todos, removeTodo, openTodo }) => {
 	return (
 		<View style={{ flex: 1 }}>
 			<AddTodo onSubmit={addTodo} />
-
 			{content}
 		</View>
 	)

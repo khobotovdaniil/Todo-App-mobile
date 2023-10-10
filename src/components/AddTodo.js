@@ -48,5 +48,4 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 2,
 		borderBottomColor: THEME.MAIN_COLOR,
 	}
-
 })
