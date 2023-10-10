@@ -1,12 +1,33 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Alert } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { StyleSheet, View, Alert, Text } from 'react-native';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+
 import { Navbar } from './src/components/Navbar';
 import { MainScreen } from './src/screens/MainScreen';
 import { TodoScreen } from './src/screens/TodoScreen';
+import { THEME } from './src/theme';
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+	const [fontsLoaded] = useFonts({
+		'roboto-regular': require('./assets/fonts/Roboto-Regular.ttf'),
+		'roboto-bold': require('./assets/fonts/Roboto-Bold.ttf'),
+	});
 	const [todoId, setTodoId] = useState(null)
 	const [todos, setTodos] = useState([])
+
+
+	const onLayoutRootView = useCallback(async () => {
+		if (fontsLoaded) {
+			await SplashScreen.hideAsync();
+		}
+	}, [fontsLoaded]);
+
+	if (!fontsLoaded) {
+		return null;
+	}
 
 	const addTodo = title => {
 
@@ -73,7 +94,7 @@ export default function App() {
 	}
 
 	return (
-		<View style={{ flex: 1 }}>
+		<View style={{ flex: 1 }} onLayout={onLayoutRootView}>
 			<Navbar title="Todo App!" />
 			<View style={styles.container}>{content}</View>
 		</View>
@@ -83,7 +104,7 @@ export default function App() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		paddingHorizontal: 30,
+		paddingHorizontal: THEME.PADDING_HORIZONTAL,
 		paddingVertical: 20,
 	},
 });

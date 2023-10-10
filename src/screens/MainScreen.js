@@ -4,12 +4,15 @@ import { AddTodo } from "../components/AddTodo";
 import { Todo } from "../components/Todo";
 
 export const MainScreen = ({ addTodo, todos, removeTodo, openTodo }) => {
+
 	let content = (
-		<FlatList
-			keyExtractor={item => item.id.toString()}
-			data={todos}
-			renderItem={({ item }) => <Todo todo={item} onRemove={removeTodo} onOpen={openTodo} />}
-		/>
+		<View>
+			<FlatList
+				keyExtractor={item => item.id.toString()}
+				data={todos}
+				renderItem={({ item }) => <Todo todo={item} onRemove={removeTodo} onOpen={openTodo} />}
+			/>
+		</View>
 	)
 
 	if (todos.length === 0) {
