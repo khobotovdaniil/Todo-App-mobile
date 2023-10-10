@@ -5,7 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 
 import { MainLayout } from './src/MainLayout';
 import { TodoState } from './src/context/todo/TodoState';
-
+import { ScreenState } from './src/context/screen/ScreenState';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -26,10 +26,12 @@ export default function App() {
 	}
 
 	return (
-		<TodoState>
-			<View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-				<MainLayout />
-			</View>
-		</TodoState>
+		<ScreenState>
+			<TodoState>
+				<View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+					<MainLayout />
+				</View>
+			</TodoState>
+		</ScreenState>
 	)
 }
