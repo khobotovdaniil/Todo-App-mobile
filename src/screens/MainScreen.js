@@ -1,12 +1,27 @@
-import React from "react";
-import { StyleSheet, View, FlatList, Image } from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, FlatList, Image, Dimensions } from "react-native";
 import { AddTodo } from "../components/AddTodo";
 import { Todo } from "../components/Todo";
+import { THEME } from "../theme";
 
 export const MainScreen = ({ addTodo, todos, removeTodo, openTodo }) => {
+	const [deviceWidth, setDeviceWidth] = useState(
+		Dimensions.get('window').width - THEME.PADDING_HORIZONTAL * 2
+	)
+
+	useEffect(() => {
+		const update = () => {
+			const width = Dimensions.get('window').width - THEME.PADDING_HORIZONTAL * 2
+			setDeviceWidth(width)
+		}
+		const subscription = Dimensions.addEventListener('change', update)
+
+		return () => subscription?.remove();
+	})
+
 
 	let content = (
-		<View style={{ flex: 1 }}>
+		<View style={{ flex: 1, deviceWidth }}>
 			<FlatList
 				keyExtractor={item => item.id.toString()}
 				data={todos}

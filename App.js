@@ -98,7 +98,7 @@ export default function App() {
 			<Navbar title="Todo App!" />
 			<View style={styles.container}>{content}</View>
 		</View>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
